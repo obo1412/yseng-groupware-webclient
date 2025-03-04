@@ -13,12 +13,14 @@ import { FcGoogle } from "react-icons/fc";
 import { SiNaver } from "react-icons/si";
 import { SignInFlow } from "../types";
 
+import * as HTTPManager from "../../../lib/HTTPManager";
+
 interface SignInCardProps {
   setState: (state: SignInFlow) => void;
 }
 
 export const SignInCard = ({ setState }: SignInCardProps) => {
-  const [email, setEmail] = useState("");
+  const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -30,15 +32,18 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5 px-0 pb-0">
-        <form className="space-y-2.5">
+        <form
+          className="space-y-2.5"
+          action={() => HTTPManager.SignIn({ account, password })}
+        >
           <Input
             disabled={false}
-            value={email}
+            value={account}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setAccount(e.target.value);
             }}
-            placeholder="이메일"
-            type="email"
+            placeholder="아이디"
+            type="text"
             required
           />
           <Input

@@ -12,15 +12,19 @@ import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
 import { SiNaver } from "react-icons/si";
 import { SignInFlow } from "../types";
+import * as HTTPManager from "../../../lib/HTTPManager";
 
 interface SignUpCardProps {
   setState: (state: SignInFlow) => void;
 }
 
 export const SignUpCard = ({ setState }: SignUpCardProps) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [signUpInfo, setSignUpInfo] = useState({
+    account: "",
+    password: "",
+    confirmPassword: "",
+    name: "",
+  });
   return (
     <Card className="w-full h-full p-8">
       <CardHeader className="px-0 pt-0">
@@ -30,22 +34,31 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5 px-0 pb-0">
-        <form className="space-y-2.5">
+        <form
+          className="space-y-2.5"
+          action={() => HTTPManager.SignUp(signUpInfo)}
+        >
           <Input
             disabled={false}
-            value={email}
+            value={signUpInfo.account}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setSignUpInfo({
+                ...signUpInfo,
+                account: e.target.value,
+              });
             }}
-            placeholder="이메일"
-            type="email"
+            placeholder="아이디"
+            type="account"
             required
           />
           <Input
             disabled={false}
-            value={password}
+            value={signUpInfo.password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setSignUpInfo({
+                ...signUpInfo,
+                password: e.target.value,
+              });
             }}
             placeholder="비밀번호"
             type="password"
@@ -53,12 +66,28 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
           />
           <Input
             disabled={false}
-            value={confirmPassword}
+            value={signUpInfo.confirmPassword}
             onChange={(e) => {
-              setConfirmPassword(e.target.value);
+              setSignUpInfo({
+                ...signUpInfo,
+                confirmPassword: e.target.value,
+              });
             }}
             placeholder="비밀번호 확인"
             type="password"
+            required
+          />
+          <Input
+            disabled={false}
+            value={signUpInfo.name}
+            onChange={(e) => {
+              setSignUpInfo({
+                ...signUpInfo,
+                name: e.target.value,
+              });
+            }}
+            placeholder="이름"
+            type="text"
             required
           />
           <Button type="submit" className="w-full" size={"lg"}>
