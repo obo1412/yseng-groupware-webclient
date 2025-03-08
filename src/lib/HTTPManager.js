@@ -15,8 +15,7 @@ export async function SignUp(props) {
   return await instance
     .post("/member/signup", props)
     .then(function (response) {
-      console.log(response);
-      return response.data;
+      return response;
     })
     .catch(function (error) {
       console.log(error);
@@ -29,7 +28,7 @@ export async function SignIn(props) {
   return await instance
     .get("/member/list", props)
     .then(function (response) {
-      return response.data;
+      return response;
     })
     .catch(function (error) {
       console.log(error);

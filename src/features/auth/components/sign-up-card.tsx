@@ -25,6 +25,20 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
     confirmPassword: "",
     name: "",
   });
+
+  const clickedSignUp = async () => {
+    const result = await HTTPManager.SignUp(signUpInfo);
+    if (result.status === 200) {
+      setSignUpInfo({
+        account: "",
+        password: "",
+        confirmPassword: "",
+        name: "",
+      });
+      setState("signIn");
+      alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+    }
+  };
   return (
     <Card className="w-full h-full p-8">
       <CardHeader className="px-0 pt-0">
@@ -34,10 +48,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5 px-0 pb-0">
-        <form
-          className="space-y-2.5"
-          action={() => HTTPManager.SignUp(signUpInfo)}
-        >
+        <form className="space-y-2.5" action={clickedSignUp}>
           <Input
             disabled={false}
             value={signUpInfo.account}
