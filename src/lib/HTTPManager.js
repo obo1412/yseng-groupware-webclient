@@ -26,7 +26,7 @@ export async function SignUp(props) {
 // 로그인
 export async function SignIn(props) {
   return await instance
-    .get("/member/list", props)
+    .post("/member/login", props)
     .then(function (response) {
       return response;
     })

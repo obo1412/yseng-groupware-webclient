@@ -20,8 +20,24 @@ interface SignInCardProps {
 }
 
 export const SignInCard = ({ setState }: SignInCardProps) => {
-  const [account, setAccount] = useState("");
-  const [password, setPassword] = useState("");
+  const [signInInfo, setSignInInfo] = useState({
+    account: "",
+    password: "",
+  });
+
+  const clickedSignIn = async () => {
+    const result = await HTTPManager.SignIn(signInInfo);
+    console.log(result);
+    if (result.status !== 200) {
+      alert("로그인에 실패하였습니다. 회원아이디와 비밀번호를 확인해주세요.");
+    } else {
+      setSignInInfo({
+        account: "",
+        password: "",
+      });
+      alert(result.data.msg);
+    }
+  };
 
   return (
     <Card className="w-full h-full p-8">
@@ -32,15 +48,15 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5 px-0 pb-0">
-        <form
-          className="space-y-2.5"
-          action={() => HTTPManager.SignIn({ account, password })}
-        >
+        <form className="space-y-2.5" action={clickedSignIn}>
           <Input
             disabled={false}
-            value={account}
+            value={signInInfo.account}
             onChange={(e) => {
-              setAccount(e.target.value);
+              setSignInInfo({
+                ...signInInfo,
+                account: e.target.value,
+              });
             }}
             placeholder="아이디"
             type="text"
@@ -48,9 +64,12 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
           />
           <Input
             disabled={false}
-            value={password}
+            value={signInInfo.password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setSignInInfo({
+                ...signInInfo,
+                password: e.target.value,
+              });
             }}
             placeholder="비밀번호"
             type="password"
