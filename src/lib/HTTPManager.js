@@ -138,18 +138,18 @@ export async function SignIn(props) {
 //     });
 // }
 
-// // 로그 아웃
-// export async function Logout(Props) {
-//   return await instance
-//     .patch("/user/logout", Props)
-//     .then((res) => {
-//       // localStorage.removeItem("autoLogin");
-//       return res;
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
+// 로그 아웃
+export async function Logout(Props) {
+  return await instance
+    .patch("/member/logout", Props)
+    .then((res) => {
+      // localStorage.removeItem("autoLogin");
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 // // 토큰 체커
 // export async function authChecker(Props) {

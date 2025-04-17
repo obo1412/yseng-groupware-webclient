@@ -12,8 +12,8 @@ import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
 import { SiNaver } from "react-icons/si";
 import { SignInFlow } from "../types";
-
 import * as HTTPManager from "../../../lib/HTTPManager";
+import { redirect } from "next/navigation";
 
 interface SignInCardProps {
   setState: (state: SignInFlow) => void;
@@ -36,6 +36,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
         password: "",
       });
       alert(result.data.msg);
+      redirect("/");
     }
   };
 
@@ -100,6 +101,13 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
           >
             <SiNaver className="size-5 absolute top-3 left-2.5" />
             Naver 계정으로
+          </Button>
+          <Button
+            onClick={() => {
+              console.log("asdfasdf");
+            }}
+          >
+            Test
           </Button>
         </div>
         <p className="text-xs text-muted-foreground">
